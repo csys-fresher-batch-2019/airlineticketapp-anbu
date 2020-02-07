@@ -1,0 +1,10 @@
+language: java
+addons:
+  sonarcloud:
+    organization: "csys-fresher-batch-2019"
+    token:
+      secure: "9195c6962778df612c26ba1985c9e9aa5bb319d9"
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=csys-fresher-batch-2019_airlineticketapp-anbu
