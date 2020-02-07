@@ -2,7 +2,7 @@ package com.AIRLINEINFO;
 
 public class airlineinfo {
 
-	public int noofairlines;
+	
 	public String airlineid;
 	public String airlinename;
 	public int totalseats;

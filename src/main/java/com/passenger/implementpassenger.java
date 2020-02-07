@@ -7,7 +7,7 @@ import com.Airlines.MyConnectionUtil;
 public class implementpassenger implements interfacepassenger {
 	public void addpassenger(passenger pass) throws Exception{
 		Connection con = MyConnectionUtil.Testconnections();
-String sql="INSERT INTO PASSENGER(PASSPORTNO,FNAME,LNAME,ADDRESS,PHONE,AGE,GENDER,CLASSING) values(?,?,?,?,?,?,?,?)";
+String sql="INSERT INTO PASSENGER(PASSPORTNO,FNAME,LNAME,ADDRESS,PHONE,AGE,GENDER,CLASSING,NO_OF_BOOKINGS,MAIL_ID,AIRLINEID) values(?,?,?,?,?,?,?,?,?,?,?)";
 PreparedStatement pst=con.prepareStatement(sql);
 //pst.setInt(1,pass.noofbookings);
 pst.setString(1, pass.passportno);
@@ -18,6 +18,9 @@ pst.setLong(5,pass.phone);
 pst.setInt(6, pass.age);
 pst.setString(7, pass.gender);
 pst.setString(8, pass.classing);
+pst.setInt(9,pass.noofbookings);
+pst.setString(10, pass.mailid);
+pst.setString(11,pass.airlineid);
 System.out.println(sql);
 int rows = pst.executeUpdate();
 System.out.println("No of rows inserted:" + rows);	

@@ -1,13 +1,11 @@
 package com.adminlogin;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Scanner;
 
-import com.AIRLINEINFO.airlineinfo;
-import com.AIRLINEINFO.implementairlineinfo;
-import com.login.implementationLogin;
+import com.Airlines.MyConnectionUtil;
 public class implementadminlogin implements interfaceadminlogin {
 	
 	
@@ -22,6 +20,7 @@ public class implementadminlogin implements interfaceadminlogin {
 		{
 		ResultSet rs = stmt.executeQuery("select password from adminregistration where password='" + password + "'");
 		rs.next();
+	
 		if (password.equals(rs.getString("password")))
 		{
 		return true;
@@ -33,23 +32,32 @@ public class implementadminlogin implements interfaceadminlogin {
 		return false;
 	}
 
-	public void admin() throws Exception {
+	public int admin(String email,String password) throws Exception {
 		// TODO Auto-generated method stub
 		implementadminlogin com=new implementadminlogin();
-		Scanner sc=new Scanner(System.in);
+		/*Scanner sc=new Scanner(System.in);
 		System.out.println("Enter emailId:");
 		String emailid=sc.next();
 		System.out.println("Enter password:");
-		String password=sc.next();
-		if(com.adminlogin (emailid,password)) {
+		String password=sc.next();*/
+		Connection con =  MyConnectionUtil.Testconnections();
+		String sql = "select emailid,password from adminregistration where emailid=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, email);
+		ResultSet rs=null;
+		rs = ps.executeQuery();
+		if(rs.next()) {
 //			implementadminlogin alog= new implementadminlogin();
-
-				System.out.println(">>>>LOGIN SUCESSFULL<<<<");
-		
+			if(rs.getString("password").equals(password))
+				return 1;
+			else
+				return 0;
 		}
+		else
+			return 0;
 		
 	
-	else if(emailid.equals(emailid))
+/*	else if(email.equals(email))
 	{
 		System.out.println(">>>>>invalid emailid<<<<<");
 	}
@@ -61,7 +69,7 @@ public class implementadminlogin implements interfaceadminlogin {
 	else
 	{
 		System.out.println("login failed");
-	}
+	}*/
 }
 	
 }
