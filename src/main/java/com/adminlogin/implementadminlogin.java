@@ -15,21 +15,28 @@ public class implementadminlogin implements interfaceadminlogin {
 		// TODO Auto-generated method stub
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
-		Statement stmt = con.createStatement();
-		if (stmt.executeUpdate("select emailid from adminregistration where emailid='"  + emailid + "'") != 0)
-		{
-		ResultSet rs = stmt.executeQuery("select password from adminregistration where password='" + password + "'");
-		rs.next();
-	
-		if (password.equals(rs.getString("password")))
-		{
-		return true;
+		String sql="select emailid,password from adminregistration where emailid=? and password=?";
+		PreparedStatement pst=con.prepareStatement(sql);
+		pst.setString(1, emailid);
+		pst.setString(2, password);
+		ResultSet rs=pst.executeQuery();
+		
+		
+		if(rs.next()) {
+			String email=rs.getString("emailid");
+			String pwd=rs.getString("password");
+			System.out.println(email);
+			System.out.println(pwd);
+			if(email.equals(emailid)&&pwd.equals(password)) {
+				System.out.println("true");
+				return true;
+			}else {
+				System.out.println("HI");
+				return false;
+			}
 		}
-
 		return false;
-		}
-	
-		return false;
+		
 	}
 
 	public int admin(String email,String password) throws Exception {

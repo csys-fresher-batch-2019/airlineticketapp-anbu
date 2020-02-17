@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 import com.Airlines.MyConnectionUtil;
+import com.logger.Logger;
 
 public  class implementticket implements interfaceticket {
 	public void addticket(ticket tik) throws Exception {
@@ -15,22 +16,23 @@ public  class implementticket implements interfaceticket {
 		String sql = "INSERT INTO TICKET(MAIL_ID,AIRLINEID,AIRLINE_NAME,DATE_OF_BOOKING,TRAVEL_DATE,NO_OF_BOOKINGS)values(?,?,?,SYSDATE,?,?)";
 		PreparedStatement pst = con.prepareStatement(sql);
 
-		pst.setString(1, tik.mailid);
-		pst.setString(2, tik.airlineid);
-		pst.setString(3, tik.airlinename);
-		java.sql.Date date = java.sql.Date.valueOf(tik.traveldate);
+		pst.setString(1, tik.getMailid());
+		pst.setString(2, tik.getAirlineid());
+		pst.setString(3, tik.getAirlinename());
+		java.sql.Date date = java.sql.Date.valueOf(tik.getTraveldate());
 		pst.setDate(4, date);
 		
-		int diff = Period.between(LocalDate.now(), tik.traveldate).getDays();
-		System.out.println(diff);
+		int diff = Period.between(LocalDate.now(), tik.getTraveldate()).getDays();
+		Logger logger= Logger.getInstance();
+		logger.info(diff);
 		if (diff > 20) {
-			ticket.discountforprebookings = 1000;
+			ticket.setDiscountforprebookings(1000);
 		}
 		
-		pst.setInt(5, tik.noofbookings);
-		int noofbookings= tik.noofbookings;
+		pst.setInt(5, tik.getNoofbookings());
+		int noofbookings= tik.getNoofbookings();
 		if (noofbookings > 3) {
-			ticket.discountfornoofbookings = 1000;
+			ticket.setDiscountfornoofbookings(1000);
 		}
 	
 			
@@ -38,10 +40,10 @@ public  class implementticket implements interfaceticket {
 		
 		String sql1 = "UPDATE TICKET SET DISCOUNT_FOR_NO_OF_BOOKINGS = 1000 WHERE NO_OF_BOOKINGS > 3";
 		String sql2 = "UPDATE TICKET SET DISCOUNT_FOR_PREBOOKINGS = 1000 WHERE  TRAVEL_DATE-DATE_OF_BOOKING > 20";
-		String sql3=  "UPDATE TICKET SET ORIGINAL_PRICE  = ( NO_OF_BOOKINGS *( SELECT PRICE FROM AIRLINEINFO WHERE AIRLINEID = '"+tik.airlineid+"' ))WHERE AIRLINEID='"+tik.airlineid+"'";
+		String sql3=  "UPDATE TICKET SET ORIGINAL_PRICE  = ( NO_OF_BOOKINGS *( SELECT PRICE FROM AIRLINEINFO WHERE AIRLINEID = '"+tik.getAirlineid()+"' ))WHERE AIRLINEID='"+tik.getAirlineid()+"'";
 
 		String sql4 = "UPDATE TICKET SET DISC_PRICE  = ORIGINAL_PRICE - (DISCOUNT_FOR_PREBOOKINGS + DISCOUNT_FOR_NO_OF_BOOKINGS)";
-        String sql5=  "UPDATE AIRLINEINFO SET NO_OF_SEATS_AVAILABLE = NO_OF_SEATS_AVAILABLE -(SELECT NO_OF_BOOKINGS FROM PASSENGER WHERE MAIL_ID='"+tik.mailid+"')";
+        String sql5=  "UPDATE AIRLINEINFO SET NO_OF_SEATS_AVAILABLE =( NO_OF_SEATS_AVAILABLE -(SELECT NO_OF_BOOKINGS FROM TICKET WHERE MAIL_ID = '"+tik.getMailid()+"'))WHERE AIRLINEID='"+tik.getAirlineid()+"'";
 
 
 
@@ -49,7 +51,7 @@ public  class implementticket implements interfaceticket {
 
 		
 		
-		//System.out.println(""+sql1 + "\n"+sql2 + "\n"+sql3 + "\n"+sql4 + "\n"+sql5 );//String sql4 = "UPDATE TICKET SET DISC_PRICE =ORIGINAL_PRICE - (DISCOUNT_FOR_PREBOOKINGS + DISCOUNT_FOR_NO_OF_BOOKINGS)";
+logger.info(""+sql1 + "\n"+sql2 + "\n"+sql3 + "\n"+sql4 + "\n"+sql5 );//String sql4 = "UPDATE TICKET SET DISC_PRICE =ORIGINAL_PRICE - (DISCOUNT_FOR_PREBOOKINGS + DISCOUNT_FOR_NO_OF_BOOKINGS)";
 		Statement stmt = con.createStatement();
 		int a = stmt.executeUpdate(sql1);
 		int b = stmt.executeUpdate(sql2);
@@ -59,26 +61,32 @@ public  class implementticket implements interfaceticket {
 		
 
 		//System.out.println("No of rows inserted:" + rows + " " + a + " " + b + " " + c  + " " + d + " " + e  );
-		System.out.println("No of rows inserted:" + rows );
+	logger.info("No of rows inserted:" + rows );
 	}
 
 	public void deleteticket(ticket tik1) throws Exception {
 		Connection con = MyConnectionUtil.Testconnections();
-		//String sql = "delete from ticket where mail_id=?";
-		String sql=  "UPDATE AIRLINEINFO SET NO_OF_SEATS_AVAILABLE = NO_OF_SEATS_AVAILABLE +(SELECT NO_OF_BOOKINGS FROM PASSENGER WHERE MAIL_ID=?) WHERE AIRLINEID = ?";
-		PreparedStatement pst = con.prepareStatement(sql);
-		pst.setString(1, tik1.mailid);
-		pst.setString(2, tik1.airlineid);
+		String sql = "delete from ticket where MAIL_ID=?";
+		String sql1=  "UPDATE AIRLINEINFO SET NO_OF_SEATS_AVAILABLE = NO_OF_SEATS_AVAILABLE +(SELECT NO_OF_BOOKINGS FROM TICKET WHERE MAIL_ID=?) WHERE AIRLINEID = ?";
+		PreparedStatement pst = con.prepareStatement(sql1);
 
-		//pst.setString(2, tik1.airlineid);
+		pst.setString(1, tik1.getMailid());
+		pst.setString(2, tik1.getAirlineid());
+
+		PreparedStatement pst1 = con.prepareStatement(sql);
+		pst1.setString(1, tik1.getMailid());
+
 		int rows = pst.executeUpdate();
+		int row = pst1.executeUpdate();
+
 		//Statement stmt = con.createStatement();
         //int n=stmt.executeUpdate(sql);
-		System.out.println(rows);
+		Logger logger= Logger.getInstance();
+	logger.info(rows);
 
 
 
-		System.out.println("No of rows deleted:" + rows);
+		logger.info("No of rows deleted:" + rows);
 
 	}
 

@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import com.Airlines.MyConnectionUtil;
+import com.logger.Logger;
 import com.passenger.passenger;
 public class implementairlineinfo implements interfaceairlineinfo {
 	public void addairlineinfo(airlineinfo al) throws Exception
@@ -11,17 +12,18 @@ public class implementairlineinfo implements interfaceairlineinfo {
 		Connection con = MyConnectionUtil.Testconnections();
 String sql="INSERT INTO AIRLINEINFO(AIRLINEID,AIRLINE_NAME,TOTAL_SEATS,NO_OF_SEATS_AVAILABLE,FROM_TO,JOURNEY_DATE,PRICE)values(?,?,?,?,?,?,?)";
 PreparedStatement pst=con.prepareStatement(sql);
-pst.setString(1, al.airlineid);
-pst.setString(2, al.airlinename);
-pst.setInt(3, al.totalseats);
-pst.setInt(4,al.noofseatsavailable);
-pst.setString(5, al.fromto);
-java.sql.Date journeydate= java.sql.Date.valueOf(al.journeydate);
+pst.setString(1, al.getAirlineid());
+pst.setString(2, al.getAirlinename());
+pst.setInt(3, al.getTotalseats());
+pst.setInt(4,al.getNoofseatsavailable());
+pst.setString(5, al.getFromto());
+java.sql.Date journeydate= java.sql.Date.valueOf(al.getJourneydate());
 pst.setDate(6,journeydate);
-pst.setInt(7, al.price);
-System.out.println(sql);
+pst.setInt(7, al.getPrice());
+Logger logger= Logger.getInstance();
+logger.info(sql);
 int rows = pst.executeUpdate();
-System.out.println("No of rows inserted:" + rows);
+logger.info("No of rows inserted:" + rows);
 
 /*String sql1="\r\n" +
         "UPDATE AIRLINEINFO\r\n" + 
@@ -44,11 +46,12 @@ public void deleteairlineinfo(airlineinfo al1) throws Exception{
 	Connection con = MyConnectionUtil.Testconnections();
 String sql="delete from airlineinfo where airlineid = ?";
 PreparedStatement pst = con.prepareStatement(sql);
-pst.setString(1, al1.airlineid);
+pst.setString(1, al1.getAirlineid());
 int rows = pst.executeUpdate();
-System.out.println(sql);
+Logger logger= Logger.getInstance();
+logger.info(sql);
 
-System.out.println("No of rows deleted:" + rows);
+logger.info("No of rows deleted:" + rows);
 	}
 		
 }

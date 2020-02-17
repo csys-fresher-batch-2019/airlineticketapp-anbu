@@ -6,25 +6,33 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import com.logger.Logger;
+import com.passenger.implementpassenger;
+import com.passenger.passenger;
+
 public class implementationLogin implements interfaceLogin {
+	implementpassenger ps=new implementpassenger();
 
 
 public void userLogin() throws Exception {
-
-System.out.println("Enter EMAILID:");
+	Logger logger= Logger.getInstance();
+logger.info("Enter EMAILID:");
 Scanner sc=new Scanner(System.in);
 String emailId=sc.next();
-System.out.println("Enter Password:");
+logger.info("Enter Password:");
 String password=sc.next();
 implementationLogin com=new implementationLogin();
 if(com.userLogin(emailId,password)) {
-System.out.println(">>>>LOGIN SUCESSFULL<<<<");
-//view order details
+logger.info(">>>>LOGIN SUCESSFULL<<<<");
+System.out.println();
+
+logger.info(">*>*>BOOK YOUR TICKETS<*<*<");
+
 
 }
 else
 {
-System.out.println(">>>>LOGIN FAILED<<<<");
+logger.info(">>>>LOGIN FAILED<<<<");
 }
 
 }

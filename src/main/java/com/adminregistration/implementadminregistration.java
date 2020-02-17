@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import com.Airlines.MyConnectionUtil;
+import com.logger.Logger;
 
 public class implementadminregistration implements interfaceadminregistration{
 	public void addadminregistration(adminregistration adreg) throws Exception{
@@ -10,14 +11,14 @@ public class implementadminregistration implements interfaceadminregistration{
 	String sql="INSERT INTO ADMINREGISTRATION(NAME,EMAILID,PASSWORD,CONTACT)VALUES(?,?,?,?)";
 	PreparedStatement pst=con.prepareStatement(sql);
 
-	pst.setString(1, adreg.name);
-	pst.setString(2, adreg.emailid);
-	pst.setString(3, adreg.password);
-	pst.setLong(4, adreg.contact);
-		
-	System.out.println(sql);
+	pst.setString(1, adreg.getName());
+	pst.setString(2, adreg.getEmailid());
+	pst.setString(3, adreg.getPassword());
+	pst.setLong(4, adreg.getContact());
+	Logger logger= Logger.getInstance();
+	logger.info(sql);
 	int rows = pst.executeUpdate();
-	System.out.println("No of rows inserted:" + rows);
+	logger.info("No of rows inserted:" + rows);
 	}
 
 	
