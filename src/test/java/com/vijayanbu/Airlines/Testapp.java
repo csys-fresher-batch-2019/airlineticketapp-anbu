@@ -3,43 +3,35 @@ package com.vijayanbu.Airlines;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import com.AIRLINEINFO.airlineinfo;
-import com.AIRLINEINFO.implementairlineinfo;
-import com.Airlines.Implementcity;
-import com.Airlines.airport;
-import com.Registration.Registration;
-import com.Registration.implementRegistration;
-import com.adminlogin.implementadminlogin;
-import com.logger.Logger;
-import com.login.implementationLogin;
-import com.passenger.implementpassenger;
-import com.passenger.passenger;
-import com.ticket.implementticket;
-import com.ticket.ticket;
+import com.chainsys.dao.implementation.AdminLoginDAOImplementation;
+import com.chainsys.dao.implementation.AirlineInfoDAOImplementation;
+import com.chainsys.dao.implementation.LoginDAOImplementation;
+import com.chainsys.dao.implementation.PassengerDAOImplementation;
+import com.chainsys.dao.implementation.RegistrationDAOImplementation;
+import com.chainsys.dao.implementation.TicketDAOImplementation;
+import com.chainsys.logger.Logger;
+import com.chainsys.model.AirlineInfo;
+import com.chainsys.model.Passenger;
+import com.chainsys.model.Registration;
+import com.chainsys.model.Ticket;
 
 public class Testapp {
 public static int c;
 public static int b;
 	
 	public static void main(String[] args) throws Exception{
-		// TODO Auto-generated method stub
-	
-	
-		Implementcity ar=new Implementcity();
 		
+		PassengerDAOImplementation ps=new PassengerDAOImplementation();
 		
+		TicketDAOImplementation tk=new TicketDAOImplementation();
 		
-		implementpassenger ps=new implementpassenger();
+		LoginDAOImplementation lg=new LoginDAOImplementation();
 		
-		implementticket tk=new implementticket();
-		
-		implementationLogin lg=new implementationLogin();
-		
-		implementRegistration r=new implementRegistration();
+		RegistrationDAOImplementation r=new RegistrationDAOImplementation();
 		
 		Scanner a = new Scanner(System.in);	
 		Logger logger= Logger.getInstance();
-		logger.info("Enter the choice \n 1.ADMINLOGIN  2.PASSENGER REGISTRATION 3.ADD AIRPORT 4.DELETE AIRPORT 5.ADD PASSENGER 6.DELETE PASSENGER 7.ADD_TICKET 8.DELETE_TICKET");
+		logger.info("Enter the choice \n 1.ADMINLOGIN  2.PASSENGER REGISTRATION  3.ADD PASSENGER 4.DELETE PASSENGER 5.ADD_TICKET 6.DELETE_TICKET");
 		int choice = a.nextInt();
 switch(choice) 
 {
@@ -48,16 +40,16 @@ switch(choice)
 			String email = a.next();
 			logger.info("Enter password");
 			String password = a.next();
-			implementadminlogin met = new implementadminlogin();
+			AdminLoginDAOImplementation met = new AdminLoginDAOImplementation();
 			int returned = 0;
 			returned = met.admin(email, password);
 			logger.info(returned);
 			
 	   if(returned!=0) {
-					//view order details
+					
 					logger.info("LOG-IN SUCCESSFUL");
-					implementairlineinfo arl=new implementairlineinfo();
-					airlineinfo arl1=new airlineinfo();
+					AirlineInfoDAOImplementation arl=new AirlineInfoDAOImplementation();
+					AirlineInfo arl1=new AirlineInfo();
 					logger.info("ENTER 1 TO ADD_AIRLINES");
 					logger.info("ENTER 2 TO DELETE_AIRLINES");
 
@@ -72,22 +64,24 @@ switch(choice)
 					
 					
 				logger.info("Enter airlineid");
-					arl1.setAirlineid(a.next());
+					arl1.setAirlineId(a.next());
 					
 					logger.info("Enter airlinename");
-					arl1.setAirlinename(a.next());
+					arl1.setAirlineName(a.next());
 					
 					logger.info("Enter totalseats");
-					arl1.setTotalseats(a.nextInt());
+					arl1.setTotalSeats(a.nextInt());
 					
 					logger.info("Enter availableseats");
 					arl1.setNoofseatsavailable(a.nextInt());
 					
 					logger.info("Enter from-to");
-					arl1.setFromto(a.next());
+					arl1.setFromTo(a.next());
+					
 					
 					logger.info("departure date");
-					arl1.setJourneydate(a.next());
+					String  date1 = a.next();
+					arl1.setJourneyDate(LocalDate.parse(date1));
 					
 					logger.info("Cost per person");
 			        arl1.setPrice(a.nextInt());
@@ -99,11 +93,11 @@ switch(choice)
 					break;
 					}
 					else if (num==2) {
-					implementairlineinfo ar3=new implementairlineinfo();
+					AirlineInfoDAOImplementation ar3=new AirlineInfoDAOImplementation();
 
-					airlineinfo ar2=new airlineinfo();
+					AirlineInfo ar2=new AirlineInfo();
 					logger.info("Enter the airlineid :");
-					ar2.setAirlineid(a.next());
+					ar2.setAirlineId(a.next());
 					ar3.deleteairlineinfo(ar2);
 
 
@@ -115,69 +109,7 @@ switch(choice)
 		   break;
 		   }
 a.close();
-					//Scanner a=new Scanner(System.in);
-				//	adminlogin air=new adminlogin();
-				//	alog.adminlogin();
-
-					//int num=a.nextInt();
 					
-					//switch(num)
-					//{
-					
-					
-				/*case 2:
-					implementairlineinfo arl=new implementairlineinfo();
-					airlineinfo arl1=new airlineinfo();
-					System.out.println("ENTER 1 TO ADD_AIRLINES");
-					System.out.println("ENTER 2 TO DELETE_AIRLINES");
-
-					int num=a.nextInt();
-					if(num==1)
-					{
-					System.out.println("Enter No.of.Airlines to be added:");
-				
-					int c=a.nextInt();
-					while(c>0)
-					{
-					
-					
-					System.out.println("Enter airlineid");
-					arl1.airlineid=a.next();
-					
-					System.out.println("Enter airlinename");
-					arl1.airlinename=a.next();
-					
-					System.out.println("Enter totalseats");
-					arl1.totalseats=a.nextInt();
-					
-					System.out.println("Enter availableseats");
-					arl1.noofseatsavailable=a.nextInt();
-					
-					System.out.println("Enter from-to");
-					arl1.fromto=a.next();
-					
-					System.out.println("departure date");
-					arl1.journeydate = a.next();
-					
-					System.out.println("Cost per person");
-			        arl1.price=a.nextInt();
-			        
-			         arl.addairlineinfo(arl1);
-			         
-			         c--;
-					}
-					break;
-					}
-					else if (num==2) {
-					implementairlineinfo ar3=new implementairlineinfo();
-
-					airlineinfo ar2=new airlineinfo();
-					System.out.println("Enter the airlineid :");
-					ar2.airlineid=a.next();
-					ar3.deleteairlineinfo(ar2);
-					break;
-					//}
-					}*/
 					
 					
 					
@@ -189,9 +121,9 @@ a.close();
 			logger.info("Enter the name:");
 			rs.setName(a.next());
 			logger.info("Enter password :");
-			rs.setPassword(a.next());
+			String password1=rs.setPassword(a.next());
 			logger.info("Enter emailId :");
-			rs.setEmailId(a.next());
+			String emailId=rs.setEmailId(a.next());
 			logger.info("Enter contact :");
 			rs.setContact(a.nextLong());
 			r.addRegistration(rs);
@@ -201,36 +133,20 @@ switch(num1) {
 
 case 1:
 	
-	lg.userLogin();
+	lg.userLogin(emailId, password1);
 	
 
 }
 			
 			
-			
-		case 3: 
-			airport b1=new airport();
-                System.out.println();
-				b1.setApName(a.next());
-				b1.setState(a.next());
-				b1.setCountry(a.next());
-				b1.setcName(a.next());
-				ar.addairport(b1);
-				break;
-		case 4 :
-			airport b2=new airport();
-
-			logger.info("Enter the airport name:");
-			b2.setApName(a.next());
-			ar.deleteairport(b2.getcName());
-			break;
+	
 		
 		
 			
 			
 			
-		case 5:
-			passenger p=new passenger();
+		case 3:
+			Passenger p=new Passenger();
 			logger.info("Enter airlineid");
 			p.setAirlineid(a.next());
 			logger.info("Enter the mailid");
@@ -239,8 +155,7 @@ case 1:
 			p.setNoofbookings(a.nextInt());
 			int b=p.getNoofbookings();
 			while(b>0) {
-				logger.info("Enter passport number \n");
-			p.setPassportno(a.next());
+			
 			logger.info("Enter the Firstname \n");
 			p.setFname(a.next());
 			logger.info("Enter the Lastname \n");
@@ -260,17 +175,17 @@ case 1:
 			}
 			break;
 			
-		case 6:
-		passenger pr=new passenger();
+		case 4:
+		Passenger pr=new Passenger();
 		logger.info("Enter the passportno :");
-		pr.setPassportno(a.next());
+		pr.setPhone(a.nextLong());
 		ps.deletepassenger(pr);
 		break;
 
 		
 		
-		case 7:
-			ticket t=new ticket();
+		case 5:
+			Ticket t=new Ticket();
 			logger.info("ENTER MAIL_ID");
 			t.setMailid(a.next());
 			logger.info("ENTER AIRLINE_ID");
@@ -287,8 +202,8 @@ case 1:
 		    tk.addticket(t);
 			
 			
-		case 8:
-			ticket tick=new ticket();
+		case 6:
+			Ticket tick=new Ticket();
 			logger.info("Enter the mailid :");
 			tick.setMailid(a.next());
 		
@@ -298,7 +213,7 @@ case 1:
 
 	
 
-}
+}     
 
 }
 }
