@@ -22,7 +22,7 @@ public class ImplementAdminRegistrationTest {
 		obj.setName("anbu");
 		obj.setPassword("12345");
 		AdminRegistrationDAOImplementation met = new AdminRegistrationDAOImplementation();
-		actual = met.addadminregistration(obj);
+		actual = met.saveAdmin(obj);
 		assertEquals(expected,actual);
 	}
 

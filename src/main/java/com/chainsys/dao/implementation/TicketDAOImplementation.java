@@ -16,7 +16,7 @@ import com.chainsys.logger.Logger;
 import com.chainsys.model.Ticket;
 
 public  class TicketDAOImplementation implements TicketDAO {
-	public boolean addticket(Ticket tik) throws Exception {
+	public boolean saveTicket(Ticket tik) throws Exception {
 		int rows=0;
 		try(Connection con = MyConnectionUtil.Testconnections();){
 		String sql = "INSERT INTO TICKET(MAIL_ID,AIRLINEID,AIRLINE_NAME,DATE_OF_BOOKING,TRAVEL_DATE,NO_OF_BOOKINGS)values(?,?,?,SYSDATE,?,?)";
@@ -53,7 +53,7 @@ logger.info(  "\n"+sql5 );
 	logger.info("No of rows inserted:" + rows );}}
 		catch( SQLException e) {
 			e.printStackTrace();
-			throw new DbException(InfoMessages.TICKET);
+			throw new DbException(InfoMessages.ADDTICKET);
 		}
 	
 	if(rows==1)
@@ -70,7 +70,7 @@ logger.info(  "\n"+sql5 );
 	
 	
 
-	public boolean deleteticket(Ticket tik1) throws Exception {
+	public boolean deleteTicket(Ticket tik1) throws Exception {
 		int rows=0;
 			try(Connection con = MyConnectionUtil.Testconnections();){
 		String sql = "delete from ticket where MAIL_ID=?";

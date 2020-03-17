@@ -12,7 +12,7 @@ import com.chainsys.exception.InfoMessages;
 import com.chainsys.logger.Logger;
 import com.chainsys.model.Registration;
 public class RegistrationDAOImplementation implements RegistrationDAO {
-	public boolean addRegistration(Registration pr) throws Exception{
+	public boolean userRegistration(Registration pr) throws Exception{
 		int rows=0;
 		try(Connection con = MyConnectionUtil.Testconnections();){
 		String sql="INSERT INTO REGISTRATION(NAME,EMAILID,PASSWORD,CONTACT)values(?,?,?,?)";

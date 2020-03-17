@@ -42,7 +42,7 @@ switch(choice)
 			String password = a.next();
 			AdminLoginDAOImplementation met = new AdminLoginDAOImplementation();
 			int returned = 0;
-			returned = met.admin(email, password);
+			returned = met.adminLogin(email, password);
 			logger.info(returned);
 			
 	   if(returned!=0) {
@@ -86,7 +86,7 @@ switch(choice)
 					logger.info("Cost per person");
 			        arl1.setPrice(a.nextInt());
 			        
-			         arl.addairlineinfo(arl1);
+			         arl.saveAirline(arl1);
 			         
 			         c--;
 					}
@@ -98,7 +98,7 @@ switch(choice)
 					AirlineInfo ar2=new AirlineInfo();
 					logger.info("Enter the airlineid :");
 					ar2.setAirlineId(a.next());
-					ar3.deleteairlineinfo(ar2);
+					ar3.deleteAirline(ar2);
 
 
 					break;
@@ -126,7 +126,7 @@ a.close();
 			String emailId=rs.setEmailId(a.next());
 			logger.info("Enter contact :");
 			rs.setContact(a.nextLong());
-			r.addRegistration(rs);
+			r.userRegistration(rs);
 			logger.info("Enter 1 to login");
 			int num1=a.nextInt();
 switch(num1) {
@@ -170,7 +170,7 @@ case 1:
 			p.setGender(a.next());
 			logger.info("classing \n");
 			p.setClassing(a.next());
-			ps.addpassenger(p);
+			ps.savePassenger(p);
 			b--;
 			}
 			break;
@@ -179,7 +179,7 @@ case 1:
 		Passenger pr=new Passenger();
 		logger.info("Enter the passportno :");
 		pr.setPhone(a.nextLong());
-		ps.deletepassenger(pr);
+		ps.deletePassenger(pr);
 		break;
 
 		
@@ -199,7 +199,7 @@ case 1:
 			t.setTraveldate(LocalDate.parse(date2));
 			logger.info("NO_OF_BOOKINGS");
 			t.setNoofbookings(a.nextInt());
-		    tk.addticket(t);
+		    tk.saveTicket(t);
 			
 			
 		case 6:
@@ -209,7 +209,7 @@ case 1:
 		
 			logger.info("Enter AirLine Id:");
 			tick.setAirlineid(a.next());
-			tk.deleteticket(tick);
+			tk.deleteTicket(tick);
 
 	
 

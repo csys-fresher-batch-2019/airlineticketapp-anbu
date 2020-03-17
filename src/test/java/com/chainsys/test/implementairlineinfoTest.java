@@ -28,7 +28,7 @@ public class implementairlineinfoTest {
 		LocalDate jrdate=LocalDate.parse(date);
 		info.setJourneyDate(jrdate);
 		AirlineInfoDAOImplementation airinfo=new AirlineInfoDAOImplementation();
-		actual = airinfo.addairlineinfo(info);
+		actual = airinfo.saveAirline(info);
 		assertEquals(expected,actual);
 		
 	}
@@ -40,7 +40,7 @@ public class implementairlineinfoTest {
 		AirlineInfo info=new AirlineInfo();
 		info.setAirlineId("AIMSS");
 		AirlineInfoDAOImplementation airinfo=new AirlineInfoDAOImplementation();
-		actual = airinfo.deleteairlineinfo(info);
+		actual = airinfo.deleteAirline(info);
 		assertEquals(expected,actual);
 	}
 
@@ -60,7 +60,7 @@ public class implementairlineinfoTest {
 		list.setJourneyDate(jrdate);
 		expected.add(list);
 		AirlineInfoDAOImplementation airinfo=new AirlineInfoDAOImplementation();
-		actual = airinfo.viewairlineinfo();
+		actual = airinfo.getAirline();
 		assertEquals(expected,actual);
 	}
 

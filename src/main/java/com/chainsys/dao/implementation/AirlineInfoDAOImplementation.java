@@ -16,7 +16,7 @@ import com.chainsys.logger.Logger;
 import com.chainsys.model.AirlineInfo;
 import com.chainsys.model.Passenger;
 public class AirlineInfoDAOImplementation implements AirlineInfoDAO {
-	public boolean addairlineinfo(AirlineInfo al) throws Exception
+	public boolean saveAirline(AirlineInfo al) throws Exception
 	{
 		int rows=0;
 		try(Connection con = MyConnectionUtil.Testconnections();){
@@ -46,7 +46,7 @@ else
 	
 	
 	
-public boolean deleteairlineinfo(AirlineInfo al1) throws Exception{
+public boolean deleteAirline(AirlineInfo al1) throws Exception{
 	int rows=0;
 	try(Connection con = MyConnectionUtil.Testconnections();){
 String sql="delete from airlineinfo where airlineid = ?";
@@ -69,7 +69,7 @@ else
 	return false;
 	}
 		
-public ArrayList<AirlineInfo> viewairlineinfo()throws Exception{
+public ArrayList<AirlineInfo> getAirline()throws Exception{
 ArrayList<AirlineInfo> flights = new ArrayList<AirlineInfo>();	
 Connection con = MyConnectionUtil.Testconnections();
 String sql1="SELECT *FROM AIRLINEINFO";

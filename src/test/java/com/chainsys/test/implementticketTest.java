@@ -25,7 +25,7 @@ public class implementticketTest {
 		LocalDate trvldate=LocalDate.parse(date);
 		tik.setTraveldate(trvldate);
 		TicketDAOImplementation ticket=new TicketDAOImplementation();
-		actual=ticket.addticket(tik);
+		actual=ticket.saveTicket(tik);
 		assertEquals(expected,actual);
 		
 	}
@@ -38,7 +38,7 @@ public class implementticketTest {
 		tick1.setMailid("ANBU1234");
 		tick1.setAirlineid("AA");
 		TicketDAOImplementation ticket1=new TicketDAOImplementation();
-		actual=ticket1.deleteticket(tick1);
+		actual=ticket1.deleteTicket(tick1);
 		assertEquals(expected,actual);
 	}
 

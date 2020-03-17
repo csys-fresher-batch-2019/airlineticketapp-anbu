@@ -27,7 +27,7 @@ public class implementpassengerTest {
 		long ph=9876543234l;
 		pass.setPhone(ph);
 		PassengerDAOImplementation passen=new PassengerDAOImplementation();
-		actual=passen.addpassenger(pass);
+		actual=passen.savePassenger(pass);
 		assertEquals(expected,actual);
 	}
 
@@ -39,7 +39,7 @@ Passenger pass=new Passenger();
 long contact=9876543234l;
 pass.setPhone(contact);
 PassengerDAOImplementation passen1=new PassengerDAOImplementation();
-actual=passen1.deletepassenger(pass);
+actual=passen1.deletePassenger(pass);
 assertEquals(expected,actual);
 }
 

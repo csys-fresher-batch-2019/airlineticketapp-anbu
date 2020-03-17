@@ -11,7 +11,7 @@ import com.chainsys.exception.InfoMessages;
 import com.chainsys.logger.Logger;
 import com.chainsys.model.Passenger;
 public class PassengerDAOImplementation implements PassengerDAO {
-	public boolean addpassenger(Passenger pass) throws Exception{
+	public boolean savePassenger(Passenger pass) throws Exception{
 		int rows=0;
 		try(Connection con = MyConnectionUtil.Testconnections();){
 String sql="INSERT INTO PASSENGER(FNAME,LNAME,ADDRESS,PHONE,AGE,GENDER,CLASSING,NO_OF_BOOKINGS,AIRLINEID,MAIL_ID) values(?,?,?,?,?,?,?,?,?,?)";
@@ -43,7 +43,7 @@ else
 
 }
 
-	public boolean deletepassenger(Passenger pass1) throws Exception{
+	public boolean deletePassenger(Passenger pass1) throws Exception{
 		int rows=0;
 		try(Connection con = MyConnectionUtil.Testconnections();){
 String sql="delete from passenger where Phone = ?";

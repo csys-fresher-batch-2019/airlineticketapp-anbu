@@ -6,11 +6,11 @@ import com.chainsys.model.Passenger;
 
 public class PassengerService {
 	PassengerDAO obj = new PassengerDAOImplementation();
-	public int addpassenger(Passenger pass) throws Exception{
-		obj.addpassenger(pass);
+	public int savePassenger(Passenger pass) throws Exception{
+		obj.savePassenger(pass);
 		return 0;
 	}
-	public void deletepassenger(Passenger pass1) throws Exception{
+	public void deletePassenger(Passenger pass1) throws Exception{
 		
 	}
 }

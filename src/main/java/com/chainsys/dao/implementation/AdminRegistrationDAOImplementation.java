@@ -12,7 +12,7 @@ import com.chainsys.logger.Logger;
 import com.chainsys.model.AdminRegistration;
 
 public class AdminRegistrationDAOImplementation implements AdminRegistrationDAO{
-	public boolean addadminregistration(AdminRegistration adreg) throws Exception{
+	public boolean saveAdmin(AdminRegistration adreg) throws Exception{
 		int rows = 0;
 		try(Connection con = MyConnectionUtil.Testconnections();){
 	String sql="INSERT INTO ADMINREGISTRATION(NAME,EMAILID,PASSWORD,CONTACT)VALUES(?,?,?,?)";

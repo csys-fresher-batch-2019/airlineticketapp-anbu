@@ -21,7 +21,7 @@ reg.setPassword("VIJAY");
 long cont=9788723425l;
 reg.setContact(cont);	
 RegistrationDAOImplementation obj=new 	RegistrationDAOImplementation();
-actual=obj.addRegistration(reg);
+actual=obj.userRegistration(reg);
 assertEquals(expected,actual);
 	
 	}

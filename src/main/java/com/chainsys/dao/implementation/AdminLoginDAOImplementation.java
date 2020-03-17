@@ -46,7 +46,7 @@ public class AdminLoginDAOImplementation implements AdminDAO {
 		
 	}
 
-	public int admin(String email,String password) throws Exception {
+	public int adminLogin(String email,String password) throws Exception {
 		AdminLoginDAOImplementation com=new AdminLoginDAOImplementation();
 		try(Connection con =  MyConnectionUtil.Testconnections();){
 		String sql = "select emailid,password from adminregistration where emailid=?";

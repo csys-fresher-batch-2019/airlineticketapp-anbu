@@ -16,7 +16,7 @@ public class InfoMessages {
 	public static final String INVALIDLOGIN = "Invalid Email or Password";
 
 	public static final String PASSENGERREGISTRATION="Unable to do Passenger Registration process";
-	public static final String TICKET="Unable to add ticket";
+	public static final String ADDTICKET="Unable to add ticket";
 	public static final String DELETETICKET="Unable to delete ticket";
 
 
